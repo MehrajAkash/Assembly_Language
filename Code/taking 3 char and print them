@@ -1,0 +1,59 @@
+
+.model small
+.stack 100h
+
+.data
+str db 'Enter three numbers: $'
+str2 db 'Your 3 numbers are: $'
+
+.code
+main proc
+    
+    mov ax, @data
+    mov ds, ax
+    
+    mov ah,9   ; display string for input
+    lea dx,str
+    int 21h
+          
+    mov ah,1  ; 1st input
+    int 21h
+    mov bl, al
+    
+    mov ah, 1   ; 2nd input
+    int 21h
+    mov bh, al
+    
+    mov ah,1    ; 3rd input
+    int 21h
+    mov cl,al
+    
+    mov ah,2   ; print newline
+    mov dl,10
+    int 21h
+    mov dl,13
+    int 21h           
+
+
+    
+    mov ah,9    ; display string for output
+    lea dx,str2
+    int 21h
+      
+    mov ah,2   ; display 1st number
+    mov dl,bl
+    int 21h  
+    
+    mov ah,2   ; display 1st number
+    mov dl,bh
+    int 21h
+    
+    mov ah,2    ; display 1st number
+    mov dl,cl
+    int 21h
+           
+    exit:
+    mov ah,4ch
+    int 21h
+    main endp
+end main
