@@ -1,0 +1,36 @@
+.model small
+.stack 100h
+  
+.data        ; variable declaration
+num1 db 5     ; assigning 5 into num1
+num2 db ?
+.code
+
+main proc
+    mov ax, @data
+    mov ds, ax; 
+
+    mov ah,1   ;taking input for num2
+    int 21h
+    mov num2,al
+    
+    mov ah,2    ;Newline
+    mov dl,10
+    int 21h
+    mov dl,13
+    int 21h 
+    
+    mov ah,2    ;printing num1
+    add num1,48  
+    mov dl,num1
+    int 21h   
+    
+    mov ah,2   ;printing num2 k
+    mov dl,num2
+    int 21h
+        
+    exit:
+    mov ah,4ch
+    int 21h
+    main endp
+end main
