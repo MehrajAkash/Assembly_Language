@@ -1,0 +1,45 @@
+.model small
+.stack 100h  
+
+.data
+str1 db 'Enter a number: $'
+str2 db 'The number is: $'
+
+.code
+main proc
+   
+   mov ax, @data
+   mov ds, ax
+   
+   mov ah,9      ; Display "Enter number1: "
+   lea dx, str1     
+   int 21h       
+   
+   mov ah,1    ; input a single character(digit)
+   int 21h
+   mov bl,al 
+   
+   mov ah,2   ; for newline again
+   mov dl,10
+   int 21h
+   mov dl,13
+   int 21h    
+   
+   mov ah,9    ; Display "The number is: "
+   lea dx, str2  
+   int 21h  
+   
+   mov ah,2    ; display the input number
+   mov dl, bl
+   int 21h
+   
+   exit:
+   mov ah, 4ch
+   int 21h
+   main endp
+end main
+
+; output: Enter a number: _
+;         The number is: _
+       
+     
