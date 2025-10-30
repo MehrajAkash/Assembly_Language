@@ -1,0 +1,39 @@
+.model small
+.stack 100h
+
+.code
+main proc
+    
+    mov ah,1  ; taking first value
+    int 21h
+    mov bl, al
+    
+    mov ah,1  ; taking second value
+    int 21h
+    mov bh, al
+    
+    mov ah,2   ; new line
+    mov dl,10
+    int 21h
+    mov dl,13
+    int 21h
+    
+      
+    ; adding process start  
+    
+    sub bl,48    ; '2' -> 2
+    sub bh,48    ; '6' -> 6
+    add bh,bl    ; 2+6 -> 8
+    
+    add bh,48    ; convert number to asii ( 8 -> '8' )
+    
+    ; after adding -> display the sum
+    mov ah,2   
+    mov dl,bh
+    int 21h
+      
+    exit:
+    mov ah,4ch
+    int 21h
+    main endp
+end main
