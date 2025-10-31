@@ -1,0 +1,36 @@
+.model small
+.stack 100h
+.code
+
+main proc
+    mov ah,1   ; input 1st digit
+    int 21h
+    mov bl,al
+    
+    mov ah,1   ; input 2nd digit
+    int 21h
+    mov bh,al
+    
+    mov ah,1   ; input 3rd digit
+    int 21h
+    mov cl,al
+    
+    sub bl,48   ; ascii to numberic value conversion
+    sub bh,48
+    sub cl,48
+    
+    mov al,bl    ; add three numbers
+    add al,bh
+    add al,cl
+    
+    add al,48    ; numeric to ascii
+    
+    mov ah,2     ; dispul sum result
+    mov dl,al
+    int 21h
+    
+    exit:
+    mov ah,4ch
+    int 21h
+    main endp
+end main
