@@ -1,0 +1,61 @@
+; mul -> unsigned
+; imul -> signed/integer
+
+.model small
+.stack 100h      
+
+.data
+num1 db ?
+num2 db ?
+a db 10,13,'Input first digit: $'
+b db 10,13,'Input second digit: $'
+c db 10,13,'Result: $' 
+
+.code    
+main proc
+    mov ax, @data
+    mov ds, ax 
+                
+    ; input num1            
+    mov ah,9
+    lea dx, a
+    int 21h
+    
+    mov ah,1
+    int 21h
+    sub al,48
+    mov num1,al  
+    
+    ; input num2
+    mov ah,9
+    lea dx,b
+    int 21h
+    
+    mov ah,1
+    int 21h
+    sub al,48
+    mov num2,al
+                  
+    mov ah,9
+    lea dx,c
+    int 21h 
+                 
+    ;multiplication    
+    
+    mov al, num1
+    mul num2      ; mul num2 = al * num1 = num1*num2      
+    
+               
+    mov ah,2      ; display result
+    mov dl, al
+    add dl, 48      
+    int 21h
+    
+    exit:
+    mov ah,4ch
+    int 21h
+    main endp
+end main
+    
+
+    
