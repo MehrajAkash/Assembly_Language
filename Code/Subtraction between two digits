@@ -1,0 +1,31 @@
+.model small
+.stack 100h
+.code
+
+main proc
+    
+    mov ah,1   ;first digit input
+    int 21h
+    mov bl,al
+    
+    mov ah,1   ;second digit input
+    int 21h
+    mov bh,al   
+    
+    ;convert ascii to numeric values
+    sub bl,48
+    sub bh,48
+    
+    ; subtraction
+    sub bl,bh
+    add bl,48
+    
+    mov ah,2    ; display result
+    mov dl,bl
+    int 21h
+    
+    exit:
+    mov ah,4ch
+    int 21h
+    main endp
+end main
