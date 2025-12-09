@@ -1,0 +1,74 @@
+.model small
+.stack 100h
+
+.data
+num1       db 2
+num2       db 4
+dividend   dw 17
+divisor    db 5
+remainder  db ?
+Quotient   db ?
+
+.code
+main proc
+
+    ;---------------------------------------
+    ; Initialize DS register
+    ;---------------------------------------
+    mov ax, @data
+    mov ds, ax
+
+    ;---------------------------------------
+    ; Multiplication : num1 * num2
+    ; AL = num1, BL = num2
+    ; Result = AX
+    ;---------------------------------------
+    mov al, num1
+    mov bl, num2
+    mul bl                    ; AL * BL → AX
+
+    ;---------------------------------------
+    ; Print product (only works for 1-digit result)
+    ;---------------------------------------
+    mov dl, al                ; result (low byte)
+    add dl, 48                ; convert to ASCII
+    mov ah, 2
+    int 21h
+
+    ;---------------------------------------
+    ; Division : dividend / divisor
+    ; AX = dividend, divisor = CL
+    ; AL = quotient, AH = remainder
+    ;---------------------------------------
+    mov ax, dividend
+    mov cl, divisor
+    div cl
+
+    ; Store results in memory variables
+    mov remainder, ah
+    mov Quotient, al
+
+    ;---------------------------------------
+    ; Print remainder
+    ;---------------------------------------
+    mov dl, remainder
+    add dl, 48
+    mov ah, 2
+    int 21h
+
+    ;---------------------------------------
+    ; Print quotient
+    ;---------------------------------------
+    mov dl, Quotient
+    add dl, 48
+    mov ah, 2
+    int 21h
+
+    ;---------------------------------------
+    ; Exit to DOS
+    ;---------------------------------------
+    mov ah, 4Ch
+    int 21h
+
+main endp
+end main
