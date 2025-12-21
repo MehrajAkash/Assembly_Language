@@ -1,0 +1,38 @@
+.model small
+.stack 100h 
+
+.data 
+newline db 10,13,'$'
+count db 1
+
+.code
+main proc
+    mov ax, @data
+    mov ds, ax
+
+while_loop:
+    mov al, count
+    cmp al, 6        ; while (count < 6)
+    jge end_while    ; if count >= 6, exit loop
+
+    ; print the number
+    add al, 48      ; convert number to ASCII
+    mov dl, al
+    mov ah, 02h
+    int 21h
+
+    ; new line
+    mov ah,9
+    lea dx,newline
+    int 21h
+
+    inc count        ; count++
+
+    jmp while_loop   ; repeat loop
+
+end_while:
+    mov ah, 4Ch
+    int 21h
+main endp
+end main
+         
