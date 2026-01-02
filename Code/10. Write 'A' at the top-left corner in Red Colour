@@ -1,0 +1,19 @@
+.model small 
+.stack 100h 
+.code 
+main proc 
+mov ax, 0B800h     ; Load video memory segment 
+mov es, ax         ; ES points to video RAM
+mov di, 0          ; Start at top-left corner (offset = 0)
+mov al, 'A'        ; Character to display 
+mov ah, 04h        ; Color = red text on black background 
+ 
+mov es:[di], al    ; Write character into video RAM 
+inc di             ; Move to next byte (for color) 
+
+mov es:[di], ah    ; Write color attribute 
+
+mov ah, 4Ch        
+int 21h 
+main endp 
+end main 
