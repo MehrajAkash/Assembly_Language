@@ -4,6 +4,7 @@
 main proc 
 mov ax, 0B800h     ; Load video memory segment 
 mov es, ax         ; ES points to video RAM
+
 mov di, 0          ; Start at top-left corner (offset = 0)
 mov al, 'A'        ; Character to display 
 mov ah, 04h        ; Color = red text on black background 
